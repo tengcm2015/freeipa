@@ -70,8 +70,16 @@ attributetypes: ( 2.16.840.1.113719.1.301.4.6.1 NAME 'krbPrincipalExpiration' EQ
 attributetypes: ( 2.16.840.1.113719.1.301.4.8.1 NAME 'krbTicketFlags' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
 ##### The maximum ticket lifetime for a principal in seconds
 attributetypes: ( 2.16.840.1.113719.1.301.4.9.1 NAME 'krbMaxTicketLife' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.9.2 NAME 'krbMaxTicketLifeOTP' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.9.3 NAME 'krbMaxTicketLifeRADIUS' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.9.4 NAME 'krbMaxTicketLifePKINIT' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.9.5 NAME 'krbMaxTicketLifeHardened' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
 ##### Maximum renewable lifetime for a principal's ticket in seconds
 attributetypes: ( 2.16.840.1.113719.1.301.4.10.1 NAME 'krbMaxRenewableAge' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.10.2 NAME 'krbMaxRenewableAgeOTP' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.10.3 NAME 'krbMaxRenewableAgeRADIUS' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.10.4 NAME 'krbMaxRenewableAgePKINIT' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
+attributetypes: ( 2.16.840.1.113719.1.301.4.10.5 NAME 'krbMaxRenewableAgeHardened' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE)
 ##### Forward reference to the Realm object.
 ##### (FDN of the krbRealmContainer object).
 ##### Example:   cn=ACME.COM, cn=Kerberos, cn=Security
@@ -312,6 +320,6 @@ objectClasses: ( 2.16.840.1.113719.1.301.6.13.1 NAME 'krbAdmService' SUP ( krbSe
 objectClasses: ( 2.16.840.1.113719.1.301.6.14.1 NAME 'krbPwdPolicy' SUP top MUST ( cn ) MAY ( krbMaxPwdLife $ krbMinPwdLife $ krbPwdMinDiffChars $ krbPwdMinLength $ krbPwdHistoryLength $ krbPwdMaxFailure $ krbPwdFailureCountInterval $ krbPwdLockoutDuration $ krbPwdAttributes $ krbPwdMaxLife $ krbPwdMaxRenewableLife $ krbPwdAllowedKeysalts ) )
 ##### The krbTicketPolicyAux holds Kerberos ticket policy attributes.
 ##### This class can be attached to a principal object or realm object.
-objectClasses: ( 2.16.840.1.113719.1.301.6.16.1 NAME 'krbTicketPolicyAux' AUXILIARY MAY ( krbTicketFlags $ krbMaxTicketLife $ krbMaxRenewableAge ) )
+objectClasses: ( 2.16.840.1.113719.1.301.6.16.1 NAME 'krbTicketPolicyAux' AUXILIARY MAY ( krbTicketFlags $ krbMaxTicketLife $ krbMaxTicketLifeOTP $ krbMaxTicketLifeRADIUS $ krbMaxTicketLifePKINIT $ krbMaxTicketLifeHardened $ krbMaxRenewableAge $ krbMaxRenewableAgeOTP $ krbMaxRenewableAgeRADIUS $ krbMaxRenewableAgePKINIT $ krbMaxRenewableAgeHardened ) )
 ##### The krbTicketPolicy object is an effective ticket policy that is associated with a realm or a principal
 objectClasses: ( 2.16.840.1.113719.1.301.6.17.1 NAME 'krbTicketPolicy' SUP top MUST ( cn ) )

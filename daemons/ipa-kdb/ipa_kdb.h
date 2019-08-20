@@ -142,6 +142,15 @@ struct ipadb_e_data {
     char **authz_data;
     bool has_tktpolaux;
     enum ipadb_user_auth user_auth;
+
+    krb5_deltat max_life_otp;
+    krb5_deltat max_life_radius;
+    krb5_deltat max_life_pkinit;
+    krb5_deltat max_life_hardened;
+    krb5_deltat max_renewable_life_otp;
+    krb5_deltat max_renewable_life_radius;
+    krb5_deltat max_renewable_life_pkinit;
+    krb5_deltat max_renewable_life_hardened;
 };
 
 struct ipadb_context *ipadb_get_context(krb5_context kcontext);

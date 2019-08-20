@@ -70,7 +70,15 @@ static char *std_principal_attrs[] = {
     "krbObjectReferences",
     "krbTicketFlags",
     "krbMaxTicketLife",
+    "krbMaxTicketLifeOTP",
+    "krbMaxTicketLifeRADIUS",
+    "krbMaxTicketLifePKINIT",
+    "krbMaxTicketLifeHardened",
     "krbMaxRenewableAge",
+    "krbMaxRenewableAgeOTP",
+    "krbMaxRenewableAgeRADIUS",
+    "krbMaxRenewableAgePKINIT",
+    "krbMaxRenewableAgeHardened",
 
     /* IPA SPECIFIC ATTRIBUTES */
     "nsaccountlock",
@@ -85,7 +93,15 @@ static char *std_principal_attrs[] = {
 
 static char *std_tktpolicy_attrs[] = {
     "krbmaxticketlife",
+    "krbmaxticketlifeotp",
+    "krbmaxticketliferadius",
+    "krbmaxticketlifepkinit",
+    "krbmaxticketlifehardened",
     "krbmaxrenewableage",
+    "krbmaxrenewableageotp",
+    "krbmaxrenewableageradius",
+    "krbmaxrenewableagepkinit",
+    "krbmaxrenewableagehardened",
     "krbticketflags",
 
     NULL
@@ -847,6 +863,70 @@ static krb5_error_code ipadb_parse_ldap_entry(krb5_context kcontext,
                                  sizeof(rad_string), rad_string);
         if (kerr)
             goto done;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxTicketLifeOTP", &result);
+    if (ret == 0) {
+        ied->max_life_otp = result;
+    } else {
+        ied->max_life_otp = entry->max_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxTicketLifeRADIUS", &result);
+    if (ret == 0) {
+        ied->max_life_radius = result;
+    } else {
+        ied->max_life_radius = entry->max_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxTicketLifePKINIT", &result);
+    if (ret == 0) {
+        ied->max_life_pkinit = result;
+    } else {
+        ied->max_life_pkinit = entry->max_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxTicketLifeHardened", &result);
+    if (ret == 0) {
+        ied->max_life_hardened = result;
+    } else {
+        ied->max_life_hardened = entry->max_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxRenewableAgeOTP", &result);
+    if (ret == 0) {
+        ied->max_renewable_life_otp = result;
+    } else {
+        ied->max_renewable_life_otp = entry->max_renewable_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxRenewableAgeRADIUS", &result);
+    if (ret == 0) {
+        ied->max_renewable_life_radius = result;
+    } else {
+        ied->max_renewable_life_radius = entry->max_renewable_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxRenewableAgePKINIT", &result);
+    if (ret == 0) {
+        ied->max_renewable_life_pkinit = result;
+    } else {
+        ied->max_renewable_life_pkinit = entry->max_renewable_life;
+    }
+
+    ret = ipadb_ldap_attr_to_int(lcontext, lentry,
+                                 "krbMaxRenewableAgeHardened", &result);
+    if (ret == 0) {
+        ied->max_renewable_life_hardened = result;
+    } else {
+        ied->max_renewable_life_hardened = entry->max_renewable_life;
     }
 
     kerr = 0;
